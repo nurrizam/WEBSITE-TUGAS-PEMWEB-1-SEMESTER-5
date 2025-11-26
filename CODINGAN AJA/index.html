@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Website Pemrograman Web 1 - HyperMatrix Intro</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        overflow: hidden;
+        background: #000;
+    }
+
+    /* ===== BACKGROUND MATRIX NEON ===== */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://i.ibb.co/5Y3BN9Y/matrix-blue.gif') center/cover no-repeat;
+        opacity: 0.18;
+        z-index: -2;
+        filter: blur(1px);
+    }
+
+    /* ===== SCANNING LINE HOLOGRAM ===== */
+    body::after {
+        content: "";
+        position: fixed;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(
+            rgba(0,255,255,0) 0%, 
+            rgba(0,255,255,0.35) 50%, 
+            rgba(0,255,255,0) 100%);
+        z-index: -1;
+        animation: scan 4.5s linear infinite;
+    }
+
+    @keyframes scan {
+        0% { top: -200px; }
+        100% { top: 120%; }
+    }
+
+    /* ===== SIDEBAR NEON BLUR ===== */
+    #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background: rgba(0, 10, 26, 0.35);
+        backdrop-filter: blur(12px) saturate(180%);
+        -webkit-backdrop-filter: blur(12px) saturate(180%);
+        border-right: 2px solid rgba(0, 180, 255, 0.4);
+        box-shadow: 0 0 25px rgba(0, 200, 255, 0.35);
+        color: white;
+        overflow-y: auto;
+        padding: 14px;
+        box-sizing: border-box;
+        z-index: 10;
+
+        transform: translateX(-260px);
+        transition: transform 0.35s ease;
+    }
+
+    #sidebar.show {
+        transform: translateX(0);
+    }
+
+    #sidebar a {
+        display: block;
+        padding: 12px;
+        margin: 8px 0;
+        background: rgba(0, 50, 120, 0.55);
+        color: white;
+        font-weight: 600;
+        border-radius: 10px;
+        text-decoration: none;
+        border: 1px solid rgba(0, 200, 255, 0.45);
+        box-shadow: inset 0 0 10px rgba(0,180,255,0.4);
+        transition: 0.25s ease;
+    }
+
+    #sidebar a:hover {
+        background: rgba(0, 150, 255, 0.85);
+        box-shadow:
+            0 0 15px rgba(0,180,255,1),
+            0 0 35px rgba(0,180,255,0.6);
+        transform: translateY(-2px);
+    }
+
+    /* ===== FRAME ===== */
+    #headerFrame,
+    #konten,
+    #footer {
+        position: fixed;
+        transform: translateX(0);
+        transition: transform 0.35s ease, width 0.35s ease;
+        border: none;
+    }
+
+    #headerFrame {
+        top: 0;
+        width: 100%;
+        height: 140px;
+        z-index: 5;
+    }
+
+    #konten {
+        top: 140px;
+        width: 100%;
+        height: calc(100vh - 140px - 50px);
+        overflow: hidden;
+        background: transparent;
+        z-index: 1;
+    }
+
+    #footer {
+        bottom: 0;
+        width: 100%;
+        height: 50px;
+        z-index: 5;
+    }
+
+    /* SHIFT MODE WHEN SIDEBAR OPEN */
+    #headerFrame.shift,
+    #konten.shift,
+    #footer.shift {
+        transform: translateX(250px);
+        width: calc(100% - 250px);
+    }
+
+
+    /* =========================================================
+       HYPERMATRIX INTRO (HTML inserted dynamically)
+       ========================================================= */
+
+    /* container */
+    #introLoader {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: radial-gradient(circle at center, #001a33, #000814 70%);
+        z-index: 99999;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none; /* allow clicks through if needed after fade */
+        animation: introFadeOut 1s ease forwards;
+        animation-delay: 5s; /* total visible duration before fade out */
+    }
+
+    /* Canvas Partikel */
+    #particleCanvas {
+        position: absolute;
+        width: 100%; height: 100%;
+        top: 0; left: 0;
+        z-index: 1;
+    }
+
+    /* Multi-layer faint clouds for depth */
+    .holo-cloud {
+        position: absolute;
+        width: 120%;
+        height: 120%;
+        top: -10%;
+        left: -10%;
+        background: radial-gradient(circle at 20% 20%, rgba(0,200,255,0.06), transparent 20%),
+                    radial-gradient(circle at 80% 80%, rgba(0,120,255,0.04), transparent 25%);
+        filter: blur(40px);
+        z-index: 2;
+        mix-blend-mode: screen;
+    }
+
+    /* BEAM LIGHT (multi) */
+    .beam-light {
+        position: absolute;
+        width: 160%;
+        height: 3px;
+        background: rgba(0,255,255,0.45);
+        top: 48%;
+        left: -30%;
+        filter: blur(6px);
+        animation: beamMove 2.2s linear infinite;
+        z-index: 4;
+        transform: rotate(-2deg);
+    }
+    .beam-light.two {
+        top: 54%;
+        animation-duration: 2.8s;
+        opacity: 0.65;
+        transform: rotate(1deg);
+    }
+
+    @keyframes beamMove {
+        0% { transform: translateX(-100%) rotate(-2deg); }
+        100% { transform: translateX(220%) rotate(-2deg); }
+    }
+
+    /* HOLOGRAM CIRCLE (center) */
+    .holo-circle {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        border: 3px solid rgba(0,200,255,0.6);
+        box-shadow:
+            0 0 30px rgba(0,180,255,0.9),
+            inset 0 0 50px rgba(0,200,255,0.6),
+            0 0 140px rgba(0,160,255,0.4);
+        animation: holoSpin 4s ease-in-out infinite;
+        position: absolute;
+        z-index: 6;
+    }
+    .holo-circle::after {
+        content: "";
+        position: absolute;
+        inset: 12%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,220,255,0.03), transparent 60%);
+        filter: blur(8px);
+    }
+
+    @keyframes holoSpin {
+        0% { transform: rotate(0deg) scale(0.95); opacity: 0.8; }
+        50% { transform: rotate(180deg) scale(1.03); opacity: 1; }
+        100% { transform: rotate(360deg) scale(0.95); opacity: 0.8; }
+    }
+
+    /* TEXT AREA */
+    .intro-texts {
+        position: absolute;
+        text-align: center;
+        z-index: 8;
+        pointer-events: none;
+    }
+
+    /* GLITCH TEXT (three-layered pseudo-elements) */
+    .glitch {
+        font-size: 42px;
+        font-weight: 900;
+        color: #00e1ff;
+        position: relative;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-shadow:
+            0 0 6px #00e1ff,
+            0 0 30px #00aaff,
+            0 0 60px #00d9ff;
+        opacity: 0;
+        animation: glitchFadeIn 1.2s forwards ease-out;
+    }
+
+    .glitch::before,
+    .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%;
+        overflow: hidden;
+        clip: rect(0, 9999px, 0, 0);
+    }
+
+    .glitch::before {
+        color: #00bfff;
+        text-shadow: -2px 0 #00bfff;
+        transform: translate3d(-2px, 0, 0);
+        animation: glitchTop 2.6s infinite linear;
+        z-index: -1;
+    }
+
+    .glitch::after {
+        color: #66f0ff;
+        text-shadow: 2px 0 #66f0ff;
+        transform: translate3d(2px, 0, 0);
+        animation: glitchBottom 2.4s infinite linear;
+        z-index: -2;
+    }
+
+    @keyframes glitchFadeIn {
+        0% { opacity: 0; transform: translateY(16px) scale(0.98); filter: blur(6px); }
+        60% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    @keyframes glitchTop {
+        0% { clip: rect(0,9999px,0,0); transform: translate3d(-2px,0,0); }
+        10% { clip: rect(0,9999px,18px,0); transform: translate3d(1px,-2px,0); }
+        20% { clip: rect(0,9999px,0,0); transform: translate3d(-1px,0,0); }
+        30% { clip: rect(0,9999px,22px,0); transform: translate3d(2px,1px,0); }
+        40% { clip: rect(0,9999px,0,0); transform: translate3d(0,0,0); }
+        100% { clip: rect(0,9999px,0,0); transform: translate3d(-2px,0,0); }
+    }
+
+    @keyframes glitchBottom {
+        0% { clip: rect(0,9999px,0,0); transform: translate3d(2px,0,0); }
+        15% { clip: rect(0,9999px,18px,0); transform: translate3d(-1px,2px,0); }
+        35% { clip: rect(0,9999px,0,0); transform: translate3d(1px,0,0); }
+        55% { clip: rect(0,9999px,26px,0); transform: translate3d(-2px,-1px,0); }
+        100% { clip: rect(0,9999px,0,0); transform: translate3d(2px,0,0); }
+    }
+
+    /* SUBTEXT */
+    .intro-sub {
+        margin-top: 12px;
+        font-size: 20px;
+        color: #bfe9ff;
+        opacity: 0;
+        animation: fadeIn 1.5s forwards ease-out;
+        animation-delay: 1.2s;
+        z-index: 8;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SCAN LINE (stronger) */
+    .scan-line {
+        width: 100%;
+        height: 140px;
+        background: linear-gradient(
+            rgba(0,255,255,0) 0%, 
+            rgba(0,255,255,0.35) 50%, 
+            rgba(0,255,255,0) 100%
+        );
+        position: absolute;
+        top: -180px;
+        animation: scanMove 3.2s linear infinite;
+        filter: blur(0.9px);
+        z-index: 3;
+    }
+
+    @keyframes scanMove {
+        0% { top: -200px; }
+        100% { top: 120%; }
+    }
+
+    /* FADE OUT - will hide intro after animation-delay */
+    @keyframes introFadeOut {
+        0% { opacity: 1; }
+        90% { opacity: 1; visibility: visible; }
+        100% { opacity: 0; visibility: hidden; pointer-events: none; }
+    }
+
+    /* small responsive */
+    @media (max-width: 480px) {
+        .glitch { font-size: 28px; }
+        .holo-circle { width: 200px; height: 200px; }
+    }
+
+.intro-sub{animation-delay:0s !important;}
+.glitch{animation-delay:0s !important;}
+</style>
+</head>
+
+<body>
+
+    <!-- ========== HYPERMATRIX INTRO LAYER ========== -->
+    <div id="introLoader" aria-hidden="true">
+        <canvas id="particleCanvas"></canvas>
+
+        <div class="holo-cloud" aria-hidden="true"></div>
+
+        <div class="beam-light" aria-hidden="true"></div>
+        <div class="beam-light two" aria-hidden="true"></div>
+
+        <div class="holo-circle" aria-hidden="true"></div>
+
+        <div class="intro-texts" aria-hidden="true">
+            <h1 class="intro-title glitch" data-text="NURRIZAM WEBSITE">NURRIZAM WEBSITE</h1>
+            <p class="intro-sub">Initializing Interface...</p>
+        </div>
+
+        <div class="scan-line" aria-hidden="true"></div>
+    </div>
+    <!-- ========== END INTRO ========== -->
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+        <a href="home.html" target="konten">Home</a>
+        <a href="profil.html" target="konten">Profil</a>
+        <a href="tugas.html" target="konten">Tugas</a>
+        <a href="gallery.html" target="konten">Galeri</a>
+        <a href="kontak.html" target="konten">Kontak</a>
+    </div>
+
+    <!-- HEADER -->
+    <iframe id="headerFrame" src="header.html"></iframe>
+
+    <!-- KONTEN -->
+    <iframe id="konten" name="konten" src="home.html"></iframe>
+
+    <!-- FOOTER -->
+    <iframe id="footer" src="footer.html"></iframe>
+
+<script>
+    /* Sidebar toggle from existing site */
+    const sidebar = document.getElementById("sidebar");
+    const headerFrame = document.getElementById("headerFrame");
+    const konten = document.getElementById("konten");
+    const footer = document.getElementById("footer");
+
+    // default: menu tertutup pertama kali
+    sidebar.classList.remove("show");
+
+    window.addEventListener("message", function(event) {
+        if (event.data === "toggleMenu") {
+            sidebar.classList.toggle("show");
+            headerFrame.classList.toggle("shift");
+            konten.classList.toggle("shift");
+            footer.classList.toggle("shift");
+        }
+    });
+</script>
+
+<!-- ========== HYPERMATRIX PARTICLE + CONTROL SCRIPT ========== -->
+<script>
+(function(){
+    // Particle canvas - lightweight multilayer particle field
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
+    let DPR = window.devicePixelRatio || 1;
+
+    function resize() {
+        DPR = window.devicePixelRatio || 1;
+        canvas.width = Math.floor(window.innerWidth * DPR);
+        canvas.height = Math.floor(window.innerHeight * DPR);
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight + "px";
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // create particles (two layers: slow faint + faster popup)
+    const layers = [
+        { count: 80, size: [0.6,1.6], speed: [0.15,0.45], alpha: 0.5 },
+        { count: 40, size: [1.2,3.2], speed: [0.45,1.2], alpha: 0.9 }
+    ];
+    let particles = [];
+
+    function rand(min, max) { return Math.random()*(max-min)+min; }
+
+    function initParticles(){
+        particles = [];
+        layers.forEach((layer, li) => {
+            for(let i=0;i<layer.count;i++){
+                particles.push({
+                    x: Math.random()*canvas.width/DPR,
+                    y: canvas.height/DPR + Math.random()*300,
+                    r: rand(layer.size[0], layer.size[1]),
+                    speed: rand(layer.speed[0], layer.speed[1]),
+                    alpha: layer.alpha*(0.6+Math.random()*0.8),
+                    layer: li
+                });
+            }
+        });
+    }
+    initParticles();
+
+    // subtle shimmer - radial pulse at center
+    let shimmer = 0;
+    function draw() {
+        ctx.clearRect(0,0,canvas.width,DPR?canvas.height/DPR:canvas.height);
+
+        // subtle vignette / glow
+        const grad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 10, canvas.width/2, canvas.height/2, Math.max(canvas.width, canvas.height)/1.2);
+        grad.addColorStop(0, 'rgba(0,200,255,0.03)');
+        grad.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0,0,canvas.width/DPR, canvas.height/DPR);
+
+        particles.forEach(p => {
+            p.y -= p.speed;
+            if (p.y < -20) {
+                p.y = canvas.height/DPR + 20 + Math.random()*120;
+                p.x = Math.random()*canvas.width/DPR;
+            }
+
+            // draw neon dot with glow
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(0,200,255," + (p.alpha) + ")";
+            ctx.shadowBlur = 10 + p.r*3;
+            ctx.shadowColor = "rgba(0,230,255,0.9)";
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fill();
+            ctx.closePath();
+
+            // tiny streak for faster particles
+            if (p.layer === 1 && Math.random() > 0.85) {
+                ctx.beginPath();
+                ctx.strokeStyle = "rgba(0,200,255,0.12)";
+                ctx.lineWidth = 1;
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p.x + Math.random()*6 - 3, p.y + Math.random()*-12);
+                ctx.stroke();
+                ctx.closePath();
+            }
+        });
+
+        // shimmer pulse
+        shimmer += 0.02;
+        const pulse = Math.sin(shimmer)*0.04 + 0.96;
+        // small central bloom
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(0,200,255,0.02)";
+        ctx.arc(canvas.width/DPR/2, canvas.height/DPR/2, (120*pulse), 0, Math.PI*2);
+        ctx.fill();
+        ctx.closePath();
+
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // small pause: allow main frames to load before removing intro
+    // intro layer is controlled by CSS animation (introFadeOut) with delay.
+    // but to be safe we will remove from DOM after animation ends to free resources.
+    const intro = document.getElementById('introLoader');
+    intro.addEventListener('animationend', function(e){
+        if (e.animationName === 'introFadeOut') {
+            // remove node to free up paint cycles
+            try { intro.parentNode.removeChild(intro); } catch(err){}
+        }
+    });
+
+    // also remove if user clicks/taps to skip (good UX)
+    function skipIntro() {
+        intro.style.animation = 'introFadeOut 0.6s ease forwards';
+    }
+    window.addEventListener('keydown', (ev)=> { if (ev.key === 'Escape') skipIntro(); });
+    intro.addEventListener('click', skipIntro);
+
+})();
+</script>
+
+</body>
+</html>

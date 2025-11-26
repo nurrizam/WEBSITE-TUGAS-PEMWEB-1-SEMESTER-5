@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontak - Mohamad Nurrizam Mulya Putra</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #0A1A36, #06275A, #0A1A36);
+    color: #fff;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* LOADING SCREEN */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0A1A36, #06275A, #0A1A36);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.loader-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 4px solid transparent;
+    border-top: 4px solid #4dbbff;
+    border-radius: 50%;
+    animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.loader-ring:nth-child(2) {
+    border-top-color: #00aaff;
+    animation-duration: 2s;
+    animation-direction: reverse;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+}
+
+.loader-ring:nth-child(3) {
+    border-top-color: #0088cc;
+    animation-duration: 2.5s;
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    margin-top: 140px;
+    font-size: 18px;
+    color: #4dbbff;
+    letter-spacing: 3px;
+    font-weight: 600;
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { 
+        opacity: 1; 
+        text-shadow: 0 0 10px rgba(77, 187, 255, 0.5);
+    }
+    50% { 
+        opacity: 0.7; 
+        text-shadow: 0 0 20px rgba(77, 187, 255, 0.8);
+    }
+}
+
+/* MAIN CONTENT */
+#main-content {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out 0.3s forwards;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ambient neon background */
+#main-content::before {
+    content: "";
+    position: absolute;
+    top: -200px;
+    right: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0,122,255,0.35), transparent 65%);
+    filter: blur(70px);
+    z-index: 0;
+    animation: float-ambient 8s ease-in-out infinite;
+}
+
+#main-content::after {
+    content: "";
+    position: absolute;
+    bottom: -150px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(77,187,255,0.25), transparent 65%);
+    filter: blur(60px);
+    z-index: 0;
+    animation: float-ambient 10s ease-in-out infinite reverse;
+}
+
+@keyframes float-ambient {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.1); }
+}
+
+/* Partikel */
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    animation: float-particle 6s ease-in-out infinite;
+    filter: blur(1.5px);
+    z-index: 1;
+}
+
+@keyframes float-particle {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    50% { transform: translateY(-30px) scale(1.3); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 0.8; }
+}
+
+/* TITLE */
+h2 {
+    font-size: 38px;
+    color: #4dbbff;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(77, 187, 255, 0.8);
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 3;
+    animation: slideDown 0.8s ease-out 0.5s backwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.subtitle {
+    text-align: center;
+    color: #dde6f9;
+    font-size: 16px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 3;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.7s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* CONTACT INFO BOX */
+.contact-wrapper {
+    position: relative;
+    z-index: 3;
+    animation: scaleIn 0.6s ease-out 0.9s backwards;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.contact-info {
+    background: rgba(0, 30, 70, 0.7);
+    padding: 40px 50px;
+    border-radius: 20px;
+    border: 1px solid rgba(77, 187, 255, 0.3);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 150, 255, 0.4);
+    text-align: left;
+    min-width: 400px;
+    transition: all 0.4s ease;
+}
+
+.contact-info:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 150, 255, 0.6);
+    border-color: rgba(77, 187, 255, 0.5);
+}
+
+.contact-item {
+    padding: 18px 0;
+    font-size: 17px;
+    line-height: 1.8;
+    color: #e6f0ff;
+    border-bottom: 1px solid rgba(77, 187, 255, 0.15);
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: slideRight 0.5s ease-out forwards;
+}
+
+.contact-item:nth-child(1) {
+    animation-delay: 1.1s;
+}
+
+.contact-item:nth-child(2) {
+    animation-delay: 1.3s;
+}
+
+.contact-item:nth-child(3) {
+    animation-delay: 1.5s;
+    border-bottom: none;
+}
+
+@keyframes slideRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.contact-item:hover {
+    padding-left: 10px;
+    color: #fff;
+}
+
+.contact-item b {
+    color: #4dbbff;
+    margin-left: 8px;
+}
+
+a {
+    color: #00aaff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00aaff, #4dbbff);
+    transition: width 0.3s ease;
+}
+
+a:hover {
+    color: #4dbbff;
+    text-shadow: 0 0 10px rgba(77, 187, 255, 0.6);
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .contact-info {
+        min-width: 300px;
+        padding: 30px 25px;
+    }
+    
+    h2 {
+        font-size: 28px;
+    }
+    
+    .contact-item {
+        font-size: 15px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+    <div class="loader-container">
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+    </div>
+    <div class="loading-text">MEMUAT KONTAK...</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main-content">
+    <!-- Partikel -->
+    <div class="particle" style="top: 15%; left: 25%; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 45%; left: 75%; animation-delay: 1s;"></div>
+    <div class="particle" style="top: 70%; left: 20%; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 30%; left: 80%; animation-delay: 3s;"></div>
+    <div class="particle" style="top: 55%; left: 10%; animation-delay: 1.5s;"></div>
+    <div class="particle" style="top: 80%; left: 60%; animation-delay: 2.5s;"></div>
+
+    <h2>Hubungi Saya</h2>
+    <p class="subtitle">Jangan ragu untuk menghubungi saya melalui platform di bawah ini</p>
+    
+    <div class="contact-wrapper">
+        <div class="contact-info">
+            <div class="contact-item">
+                📷 <b>Instagram:</b> <a href="https://www.instagram.com/m.nurrizam_/" target="_blank">@m.nurrizam_</a>
+            </div>
+            <div class="contact-item">
+                📧 <b>Email:</b> <a href="mailto:ijammp11@gmail.com">ijammp11@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                ▶️ <b>YouTube:</b> <a href="https://www.youtube.com/@m.nurrizamRizam" target="_blank">m.nurrizamRizam</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Loading Screen Animation
+    window.addEventListener('load', function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        
+        // Tunggu minimal 1.8 detik untuk efek loading yang smooth
+        setTimeout(function() {
+            loadingScreen.classList.add('hidden');
+        }, 1800);
+    });
+</script>
+
+</body>
+</html>

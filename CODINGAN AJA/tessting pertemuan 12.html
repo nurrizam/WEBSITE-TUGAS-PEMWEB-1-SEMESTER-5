@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Contoh CSS dengan Class</title>
+
+    <style>
+        /* ====== GLOBAL STYLE ====== */
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #111827, #1f2937);
+            color: #e5e7eb;
+            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #60a5fa;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #374151;
+            margin: 20px 0;
+        }
+
+        /* ====== CLASS SESUAI MATERI ====== */
+
+        /* Paragraf tebal */
+        p.htebal {
+            font-size: 18px;
+            font-weight: bold;
+            text-indent: 40px;
+            color: #38bdf8;
+        }
+
+        /* Paragraf miring */
+        p.hmiring {
+            font-size: 20px;
+            font-style: italic;
+            text-indent: 55px;
+            color: #f87171;
+        }
+
+        /* Paragraf tanggal */
+        p.date {
+            text-align: right;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* Paragraf isi */
+        p.main {
+            text-align: justify;
+            font-size: 18px;
+            color: #f87171;
+        }
+
+        /* Link */
+        a:link { color: #93c5fd; text-decoration: none; }
+        a:visited { color: #a5b4fc; }
+        a:hover { color: #60a5fa; text-decoration: underline; }
+        a.case1 {
+            background: #10b981;
+            color: black;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+
+        /* Blockquote */
+        blockquote {
+            margin-left: 40px;
+            padding-left: 15px;
+            border-left: 4px solid #22c55e;
+            color: #86efac;
+        }
+
+        /* Class funky */
+        .funkyclass {
+            font: 32px/36px "Courier New";
+            font-variant: small-caps;
+            border: 3px dashed #3b82f6;
+            padding: 10px 14px;
+            display: inline-block;
+            background: rgba(59,130,246,0.1);
+            border-radius: 10px;
+        }
+
+        /* ID */
+        #tagid1 {
+            padding: 10px;
+            border: 4px groove white;
+            display: inline-block;
+            margin-left: 6px;
+        }
+
+        #tagid2 {
+            color: yellow;
+        }
+
+        /* Kotak iklan spesial */
+        p.special {
+            border: 2px dashed #ef4444;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: black;
+            background: white url('https://picsum.photos/300/100?blur=3') repeat-x fixed;
+        }
+
+        /* Heading khusus */
+        h2.ex1 {
+            color: #4ade80;
+            font-size: 36px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Utility */
+        .center { text-align: center; }
+    </style>
+</head>
+
+<body>
+
+    <h1 class="center funkyclass">Welcome to My Stylish Web Page!</h1>
+    <p class="date">25 November 2025</p>
+    
+    <hr>
+
+    <p class="main">
+        Ayah saya selalu memberi nasihat pada waktu saya masih muda dan masih sangat perlu pengawasan,
+        "apabila kamu dikritik oleh seseorang ingatlah bahwa semua orang di dunia tidak ada yang memiliki kelebihanmu".
+    </p>
+
+    <p class="htebal">Ini adalah contoh paragraf tebal yang diatur menggunakan class.</p>
+    <p class="hmiring">Ini adalah paragraf dengan gaya miring untuk latihan CSS class.</p>
+
+    <blockquote>
+        Menuliskan surat untukku <span id="tagid2">"H"</span> dan 
+        <span id="tagid1">Mulky Aidil Rahmat</span>
+    </blockquote>
+
+    <h2 class="ex1">Promo Spesial!</h2>
+
+    <p class="special">
+        <span class="funkyclass">IKLAN:</span>  
+        Beli satu produk terbaru mendapat tambahan gratis 
+        <a class="case1" href="https://google.com">Klik di sini</a> tanpa penundaan!
+    </p>
+
+</body>
+</html>

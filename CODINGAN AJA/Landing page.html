@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio Nurrizam</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; font-family: Arial, sans-serif; }
+
+        nav { width: 100%; background: #111; padding: 14px 0; position: fixed; top: 0; z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+        nav ul { display: flex; justify-content: center; list-style: none; gap: 45px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; font-size: 17px; transition: 0.3s; }
+        nav ul li a:hover { color: #00aaff; }
+
+        .page { height: 100vh; padding-top: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity .6s ease, transform .6s ease; }
+        .hidden { opacity: 0; transform: translateY(40px); }
+
+        #home { background: linear-gradient(135deg, #ffffff, #dcecff); text-align: center; }
+        #home h1 { font-size: 32px; margin-top: 20px; }
+        #home p { font-size: 18px; margin-top: 8px; opacity: .8; }
+
+        .profile-pic { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; box-shadow: 0 6px 20px rgba(0,0,0,0.25); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%{transform:translateY(0);} 50%{transform:translateY(-14px);} 100%{transform:translateY(0);} }
+
+        /* ABOUT */
+        #about { background: #f3f3f3; }
+        .about-card {
+            width: 70%; background: white; padding: 35px; border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.18); animation: fadeUp 0.7s ease;
+        }
+        @keyframes fadeUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+
+        .about-header { display: flex; align-items: center; gap: 20px; }
+        .about-header img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .about-title { font-size: 28px; font-weight: bold; }
+
+        .about-desc { margin-top: 20px; line-height: 1.7; text-align: justify; }
+        .about-skill { margin-top: 18px; font-weight: bold; font-size: 18px; }
+
+        /* PROJECT */
+        #projects { background: #eaeaea; }
+        .project-grid { display: flex; gap: 25px; }
+        .project-card {
+            background: #fff; padding: 22px; border-radius: 15px;
+            width: 160px; text-align: center; font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: .3s;
+        }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 8px 18px rgba(0,0,0,0.2); }
+
+        /* CONTACT */
+        #contact { background: #dddddd; }
+        form { display: flex; flex-direction: column; width: 300px; gap: 12px; }
+        input, textarea { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #666; }
+        button { padding: 10px; border: none; background: #111; color: white; border-radius: 10px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #333; }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HOME -->
+    <section id="home" class="page hidden">
+        <img src="FotoNurrizam.jpg" class="profile-pic" />
+        <h1>Halo, Saya Mohamad Nurrizam Mulya Putra</h1>
+        <p>Selamat Datang di Portofolio Saya</p>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="page hidden">
+        <div class="about-card">
+            <div class="about-header">
+                <img src="FotoNurrizam.jpg" />
+                <div>
+                    <div class="about-title">Mohamad Nurrizam Mulya Putra</div>
+                </div>
+            </div>
+
+            <div class="about-desc">
+                Hallo Semuanya Perkenalkan Nama Saya Mohamad Nurrizam Mulya Putra. Biasa Dipanggil Nurrizam Ataupun Ijam.
+                Saya Anak Ke 2 Dari 2 Bersaudara. Saya Lahir Di Wonogiri Pada Tanggal 11 Agustus 2004.
+                Hobby Saya Adalah Bermain Game, Memasak, Bermain Badminton. Cita-cita Saya Dulu Ingin Menjadi Chef,
+                Namun Tidak Kesampaian. Sekarang Saya Menjalani Apa Saja Yang Penting Halal Dan Mengikuti Arus.
+            </div>
+
+            <div class="about-skill">Skill:</div>
+            <p>Saya memiliki skill memasak yang cukup bagus sejak masa SMK.</p>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="page hidden">
+        <h1>My Projects</h1>
+        <div class="project-grid">
+            <div class="project-card">Project 1</div>
+            <div class="project-card">Project 2</div>
+            <div class="project-card">Project 3</div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="page hidden">
+        <h1>Contact Me</h1>
+        <form id="contactForm">
+            <input type="text" placeholder="Nama" name="nama" required />
+            <input type="email" placeholder="Email" name="email" required />
+            <textarea placeholder="Pesan" name="pesan" required></textarea>
+            <button type="submit">Kirim</button>
+        </form>
+        <p id="notif"></p>
+    </section>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        function showPage() {
+            pages.forEach(p => p.classList.add('hidden'));
+            const hash = window.location.hash || '#home';
+            const active = document.querySelector(hash);
+            if (active) active.classList.remove('hidden');
+        }
+        window.addEventListener('hashchange', showPage);
+        window.addEventListener('load', showPage);
+
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyWp9l_YQ81TMJTALGOqXOBXGjZH0qhf4jckyynmxICZvK7YMZdLAbNAQcUnQ_VjQQclA/exec";
+        const form = document.getElementById('contactForm');
+        const notif = document.getElementById('notif');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(() => { notif.textContent = "Pesan berhasil dikirim!"; notif.style.color = "green"; form.reset(); })
+            .catch(() => { notif.textContent = "Gagal mengirim pesan."; notif.style.color = "red"; });
+        });
+    </script>
+</body>
+</html>

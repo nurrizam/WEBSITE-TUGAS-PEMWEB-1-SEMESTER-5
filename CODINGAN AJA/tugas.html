@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Tugas Pertemuan</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #021b34, #06275A, #0A1A36);
+        color: #fff;
+        padding: 40px 20px;
+        overflow-x: hidden;
+    }
+
+    /* LOADING SCREEN */
+    #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #021b34, #06275A, #0A1A36);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .loader {
+        width: 80px;
+        height: 80px;
+        border: 6px solid rgba(77, 187, 255, 0.2);
+        border-top: 6px solid #4dbbff;
+        border-radius: 50%;
+        animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        margin-bottom: 25px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+        font-size: 20px;
+        color: #4dbbff;
+        letter-spacing: 2px;
+        font-weight: 600;
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    /* MAIN CONTENT */
+    #main-content {
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out 0.3s forwards;
+    }
+
+    @keyframes fadeIn {
+        from { 
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to { 
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 32px;
+        margin-bottom: 40px;
+        color: #4dbbff;
+        text-shadow: 0 0 20px rgba(0,150,255,0.8);
+        letter-spacing: 2px;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    /* WRAPPER KOTAK */
+    .table-wrapper {
+        background: rgba(0, 30, 70, 0.6);
+        padding: 25px;
+        border-radius: 16px;
+        border: 1px solid rgba(0,150,255,0.3);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 30px rgba(0,150,255,0.3);
+        overflow-x: auto;
+    }
+
+    /* TABEL */
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 15px;
+    }
+
+    thead {
+        background: linear-gradient(135deg, #003d82, #0056b3);
+    }
+
+    thead th {
+        padding: 16px 20px;
+        font-weight: 600;
+        text-align: center;
+        color: #fff;
+        font-size: 15px;
+        white-space: nowrap;
+    }
+
+    /* LEBAR KOLUM */
+    th:nth-child(1), td:nth-child(1) {
+        width: 15%;
+        text-align: center;
+    }
+
+    th:nth-child(2), td:nth-child(2) {
+        width: 55%;
+        text-align: left;
+        padding-left: 15px;
+    }
+
+    th:nth-child(3), td:nth-child(3) {
+        width: 30%;
+        text-align: center;
+    }
+
+    /* ISI TABEL */
+    tbody td {
+        padding: 14px 20px;
+        border-bottom: 1px solid rgba(0,150,255,0.2);
+        color: #e6f0ff;
+        vertical-align: middle;
+    }
+
+    tbody tr {
+        background: rgba(0, 40, 90, 0.4);
+        transition: 0.3s ease;
+    }
+
+    tbody tr:hover {
+        background: rgba(0, 100, 200, 0.3);
+        box-shadow: 0 0 15px rgba(0,150,255,0.3);
+    }
+
+    /* TOMBOL */
+    .btn {
+        text-decoration: none;
+        display: inline-block;
+        background: rgba(0, 100, 200, 0.3);
+        border: 1px solid rgba(0,150,255,0.4);
+        padding: 10px 25px;
+        border-radius: 8px;
+        color: #4dbbff;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+
+    .btn:hover {
+        background: rgba(0,150,255,0.4);
+        color: #fff;
+        box-shadow: 0 0 10px rgba(0,200,255,0.8);
+        transform: translateY(-2px);
+    }
+
+    .btn-disabled {
+        background: rgba(100,100,120,0.3);
+        border-color: rgba(100,100,120,0.3);
+        color: #777;
+        cursor: not-allowed;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+    <div class="loader"></div>
+    <div class="loading-text">MEMUAT TUGAS...</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main-content">
+<div class="container">
+    <h1>DAFTAR TUGAS PEMROGRAMAN WEB 1</h1>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pertemuan</th>
+                    <th>Topik</th>
+                    <th>Link Tugas</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr><td>1</td><td>Pengenalan Web</td><td><a class="btn" href="pengenalan_web.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>2</td><td>Basic Tag HTML</td><td><a class="btn" href="basic tag.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>3</td><td>Format Teks dan Karakter Khusus</td><td><a class="btn" href="relion (1).html" target="_blank">Lihat</a></td></tr>
+                <tr><td>4</td><td>Multimedia (Gambar, Audio, Video)</td><td><a class="btn" href="gambar.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>5</td><td>Hyperlink</td><td><a class="btn" href="hyperlink.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>6</td><td>Bullet, Numbering & List</td><td><a class="btn" href="komponen.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>7</td><td>Tabel Multimedia Wisata</td><td><a class="btn" href="wisata_indonesia.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>8</td><td>Formulir Pendaftaran</td><td><a class="btn" href="Form_Registration.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>9</td><td>Hasil Halaman Index HTML</td><td><a class="btn" href="Hasil halaman index.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>10</td><td>IFRAME</td><td><a class="btn" href="PERTEMUAN 10.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>11</td><td>CSS Dasar</td><td><a class="btn" href="TUGAS PERTEMUAN 11.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>12</td><td>CLASS DALAM CASCADING STYLE SHEET</td><td><a class="btn" href="tessting pertemuan 12.html" target="_blank">Lihat</a></td></tr>
+                <tr><td>13</td><td>Landing Page Either</td><td><a class="btn" href="Landing page.html" target="_blank">Lihat</a></td></tr>
+
+                <!-- BELUM TERSEDIA -->
+                <tr><td>14</td><td>Tugas Belum Tersedia</td><td><span class="btn btn-disabled">Belum Tersedia</span></td></tr>
+                <tr><td>15</td><td>Tugas Belum Tersedia</td><td><span class="btn btn-disabled">Belum Tersedia</span></td></tr>
+                <tr><td>16</td><td>Tugas Belum Tersedia</td><td><span class="btn btn-disabled">Belum Tersedia</span></td></tr>
+                <tr><td>17</td><td>Tugas Belum Tersedia</td><td><span class="btn btn-disabled">Belum Tersedia</span></td></tr>
+                <tr><td>18</td><td>Tugas Belum Tersedia</td><td><span class="btn btn-disabled">Belum Tersedia</span></td></tr>
+                <tr><td>19</td><td>Tugas Belum Tersedia</td><td><span class="btn btn-disabled">Belum Tersedia</span></td></tr>
+                <tr><td>20</td><td>Tugas Belum Tersedia</td><td><span class="btn btn-disabled">Belum Tersedia</span></td></tr>
+                <tr><td>21</td><td>Tugas Belum Tersedia</td><td><span class="btn btn-disabled">Belum Tersedia</span></td></tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<script>
+    // Loading Screen Animation
+    window.addEventListener('load', function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        
+        // Tunggu minimal 1.5 detik untuk efek loading yang smooth
+        setTimeout(function() {
+            loadingScreen.classList.add('hidden');
+        }, 1500);
+    });
+</script>
+
+</body>
+</html>

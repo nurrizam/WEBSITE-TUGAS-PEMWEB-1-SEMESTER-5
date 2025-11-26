@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Multimedia - Mohamad Nurrizam Mulya Putra</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      box-shadow: 0px 2px 10px rgba(0,0,0,0.7);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav a {
+      color: #ffcc00;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #00ffcc;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 30px auto;
+      width: 85%;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.7);
+    }
+    h2 {
+      color: #ffcc00;
+      text-shadow: 2px 2px 5px #000;
+    }
+    h3 {
+      margin-top: 40px;
+      color: #00ffcc;
+    }
+    img, video, audio {
+      margin-top: 15px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.6);
+    }
+    img, video {
+      max-width: 80%;
+      height: auto;
+    }
+    footer {
+      margin-top: 50px;
+      padding: 15px;
+      background: rgba(0,0,0,0.6);
+      color: #ccc;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>🌐 Web Multimedia - Mohamad Nurrizam Mulya Putra</h2>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#gambar">Gambar</a>
+      <a href="#audio">Audio</a>
+      <a href="#video">Video</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+  </header>
+
+  <div class="container" id="home">
+    <h3>🏠 Selamat Datang</h3>
+    <p>Ini adalah website multimedia yang menampilkan gambar, audio, dan video karya saya.<br>
+    Website ini dibuat untuk tugas <b>Pemrograman Web 1</b>.</p>
+  </div>
+
+  <div class="container" id="gambar">
+    <h3>🖼️ Gambar</h3>
+    <img src="Nurrizam.JPEG" alt="Gambar Utama">
+  </div>
+
+  <div class="container" id="audio">
+    <h3>🎵 Audio</h3>
+    <audio controls>
+      <source src="WhatsApp Audio 2025-09-30 at 23.24.35.mpeg" type="audio/mpeg">
+      Browser anda tidak mendukung tag audio.
+    </audio>
+  </div>
+
+  <div class="container" id="video">
+    <h3>🎬 Video</h3>
+    <video controls>
+      <source src="WhatsApp Video 2025-09-29 at 21.56.43.mp4" type="video/mp4">
+      Browser anda tidak mendukung tag video.
+    </video>
+  </div>
+
+  <div class="container" id="kontak">
+    <h3>📬 Kontak</h3>
+    <p>Email: <a href="mailto:ijammp11@gmail.com" style="color:#ffcc00;">ijammp11@gmail.com</a></p>
+    <p>Instagram: <a href="https://www.instagram.com/m.nurrizam_" target="_blank" style="color:#00ffcc;">@m.nurrizam_</a></p>
+  </div>
+
+  <footer>
+    &copy; 2025 Mohamad Nurrizam Mulya Putra | Pemrograman Web 1 | Universitas Pamulang
+  </footer>
+</body>
+</html>

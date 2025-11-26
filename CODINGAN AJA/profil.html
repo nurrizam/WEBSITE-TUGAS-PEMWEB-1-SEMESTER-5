@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil - Mohamad Nurrizam Mulya Putra</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* ===== BACKGROUND ANIMASI NEON ===== */
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #fff;
+        text-align: center;
+        padding: 60px 20px;
+        overflow-x: hidden;
+        min-height: 100vh;
+
+        background: linear-gradient(135deg, #021b34, #06275A, #0A1A36);
+        background-size: 300% 300%;
+        animation: gradientMove 12s ease infinite;
+        position: relative;
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* ===== AMBIENT GLOW ===== */
+    body::before {
+        content: "";
+        position: absolute;
+        top: -150px;
+        left: -120px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(0,145,255,0.4), transparent 70%);
+        filter: blur(90px);
+        z-index: 0;
+        animation: glowMove 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes glowMove {
+        from { transform: translate(0,0); }
+        to { transform: translate(80px, 60px); }
+    }
+
+    /* ===== LOADING SCREEN ===== */
+    .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #021b34, #06275A, #0A1A36);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        animation: fadeOutLoading 0.8s ease forwards;
+        animation-delay: 3s;
+    }
+
+    @keyframes fadeOutLoading {
+        to {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    /* Logo/Inisial */
+    .loading-logo {
+        font-size: clamp(32px, 6vw, 60px);
+        font-weight: bold;
+        color: #4dbbff;
+        text-shadow: 0 0 30px rgba(0,150,255,0.8);
+        margin-bottom: 30px;
+        animation: pulseGlow 2s ease-in-out infinite;
+        letter-spacing: 3px;
+        line-height: 1.3;
+        padding: 0 15px;
+        text-align: center;
+    }
+
+    @keyframes pulseGlow {
+        0%, 100% {
+            transform: scale(1);
+            text-shadow: 0 0 30px rgba(0,150,255,0.8);
+        }
+        50% {
+            transform: scale(1.05);
+            text-shadow: 0 0 50px rgba(0,200,255,1), 0 0 80px rgba(0,150,255,0.6);
+        }
+    }
+
+    /* Loading Bar Container */
+    .loading-bar-container {
+        width: clamp(250px, 80vw, 400px);
+        height: 6px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 0 20px rgba(0,150,255,0.3);
+    }
+
+    /* Loading Bar */
+    .loading-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #00aaff, #00d4ff, #4dbbff);
+        border-radius: 10px;
+        animation: loadingProgress 3s ease-out forwards;
+        box-shadow: 0 0 20px rgba(0,200,255,0.8);
+        position: relative;
+    }
+
+    .loading-bar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes loadingProgress {
+        0% { width: 0%; }
+        100% { width: 100%; }
+    }
+
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    /* Loading Text */
+    .loading-text {
+        margin-top: 20px;
+        font-size: clamp(14px, 3vw, 18px);
+        color: #4dbbff;
+        letter-spacing: 2px;
+        animation: fadeInOut 2s ease-in-out infinite;
+        font-weight: 500;
+    }
+
+    @keyframes fadeInOut {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+    }
+
+    /* Loading Dots */
+    .loading-dots {
+        display: inline-block;
+    }
+
+    .loading-dots span {
+        animation: dotBlink 1.4s infinite;
+    }
+
+    .loading-dots span:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .loading-dots span:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes dotBlink {
+        0%, 60%, 100% { opacity: 0; }
+        30% { opacity: 1; }
+    }
+
+    /* Orbiting Circles */
+    .orbit-container {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .orbit-circle {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #00aaff;
+        box-shadow: 0 0 20px rgba(0,170,255,0.8);
+    }
+
+    .orbit-circle:nth-child(1) {
+        animation: orbit1 3s linear infinite;
+    }
+
+    .orbit-circle:nth-child(2) {
+        animation: orbit2 3s linear infinite;
+        animation-delay: 1s;
+    }
+
+    .orbit-circle:nth-child(3) {
+        animation: orbit3 3s linear infinite;
+        animation-delay: 2s;
+    }
+
+    @keyframes orbit1 {
+        0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+    }
+
+    @keyframes orbit2 {
+        0% { transform: rotate(120deg) translateX(100px) rotate(-120deg); }
+        100% { transform: rotate(480deg) translateX(100px) rotate(-480deg); }
+    }
+
+    @keyframes orbit3 {
+        0% { transform: rotate(240deg) translateX(100px) rotate(-240deg); }
+        100% { transform: rotate(600deg) translateX(100px) rotate(-600deg); }
+    }
+
+    /* ===== MAIN CONTENT (Hidden until loading finishes) ===== */
+    .main-content {
+        opacity: 0;
+        animation: fadeInContent 1s ease forwards;
+        animation-delay: 3.5s;
+    }
+
+    @keyframes fadeInContent {
+        to { opacity: 1; }
+    }
+
+    /* ===== PARTIKEL ===== */
+    .particle {
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        background: rgba(255,255,255,0.5);
+        border-radius: 50%;
+        animation: particleFloat 6s infinite ease-in-out;
+        filter: blur(1.5px);
+        z-index: 1;
+    }
+
+    @keyframes particleFloat {
+        0% { transform: translateY(0) scale(1); opacity: 0.6; }
+        50% { transform: translateY(-30px) scale(1.3); opacity: 1; }
+        100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    }
+
+    /* ===== BUBBLE ANIMASI ===== */
+    .bubble {
+        position: absolute;
+        bottom: -50px;
+        width: 15px;
+        height: 15px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        animation: bubbleRise 8s infinite ease-in;
+        z-index: 1;
+    }
+
+    @keyframes bubbleRise {
+        0% {
+            bottom: -50px;
+            opacity: 0.8;
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(30px);
+        }
+        100% {
+            bottom: 100%;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+    }
+
+    /* ===== PROFILE CARD ===== */
+    .profile-card {
+        background: rgba(0, 20, 55, 0.55);
+        border-radius: 22px;
+        padding: 40px 55px;
+        max-width: 550px;
+        margin: auto;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        border: 1px solid rgba(0, 200, 255, 0.35);
+        box-shadow:
+            0 0 25px rgba(0, 150, 255, 0.4),
+            inset 0 0 18px rgba(0,150,255,0.25);
+
+        transform: scale(0.8) translateY(50px);
+        animation: cardEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        animation-delay: 3.8s;
+    }
+
+    @keyframes cardEntrance {
+        0% { 
+            transform: scale(0.8) translateY(50px) rotateX(20deg);
+        }
+        60% {
+            transform: scale(1.02) translateY(-10px) rotateX(0deg);
+        }
+        100% { 
+            transform: scale(1) translateY(0) rotateX(0deg);
+        }
+    }
+
+    /* ===== FOTO PROFIL ANIMASI ===== */
+    .profile-image-wrapper {
+        display: inline-block;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .profile-card img {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: 4px solid #00aaff;
+        object-fit: cover;
+        box-shadow: 0 0 20px rgba(0,150,255,0.7);
+        
+        animation: floatImage 3s ease-in-out infinite, glowPulse 2s ease-in-out infinite;
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        
+        opacity: 0;
+        animation: floatImage 3s ease-in-out infinite, glowPulse 2s ease-in-out infinite, imageAppear 1s ease forwards;
+        animation-delay: 3s, 3s, 4.3s;
+    }
+
+    @keyframes floatImage {
+        0%, 100% { 
+            transform: translateY(0) rotate(0deg); 
+        }
+        25% {
+            transform: translateY(-8px) rotate(1deg);
+        }
+        50% { 
+            transform: translateY(-15px) rotate(0deg); 
+        }
+        75% {
+            transform: translateY(-8px) rotate(-1deg);
+        }
+    }
+
+    @keyframes glowPulse {
+        0%, 100% {
+            box-shadow: 0 0 20px rgba(0,150,255,0.7);
+            border-color: #00aaff;
+        }
+        50% {
+            box-shadow: 0 0 35px rgba(0,200,255,1), 0 0 50px rgba(0,150,255,0.5);
+            border-color: #00d4ff;
+        }
+    }
+
+    @keyframes imageAppear {
+        from { 
+            opacity: 0; 
+            transform: scale(0) rotate(-180deg);
+        }
+        to { 
+            opacity: 1; 
+            transform: scale(1) rotate(0deg);
+        }
+    }
+
+    .profile-card img:hover {
+        transform: scale(1.15) rotate(5deg);
+        box-shadow: 0 0 40px rgba(0,200,255,1), 0 0 60px rgba(0,150,255,0.7);
+        animation: floatImage 3s ease-in-out infinite, spinGlow 0.6s ease;
+    }
+
+    @keyframes spinGlow {
+        0% { transform: scale(1.15) rotate(0deg); }
+        50% { transform: scale(1.2) rotate(180deg); }
+        100% { transform: scale(1.15) rotate(360deg); }
+    }
+
+    /* ===== TEKS ANIMASI ===== */
+    .profile-card h2 {
+        color: #4dbbff;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        text-shadow: 0 0 10px rgba(0,150,255,0.8);
+        
+        opacity: 0;
+        animation: slideInFromLeft 0.8s ease forwards;
+        animation-delay: 4.5s;
+    }
+
+    .profile-card p {
+        margin: 6px 0;
+        font-size: 16px;
+        color: #e6f0ff;
+        
+        opacity: 0;
+        animation: slideInFromRight 0.8s ease forwards;
+    }
+
+    .profile-card p:nth-of-type(1) { animation-delay: 4.7s; }
+    .profile-card p:nth-of-type(2) { animation-delay: 4.8s; }
+    .profile-card p:nth-of-type(3) { animation-delay: 4.9s; }
+    .profile-card p:nth-of-type(4) { animation-delay: 5.0s; }
+    .profile-card p:nth-of-type(5) { animation-delay: 5.1s; }
+    .profile-card p:nth-of-type(6) { animation-delay: 5.2s; }
+
+    @keyframes slideInFromLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInFromRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* ===== SOSIAL MEDIA ===== */
+    .social-links {
+        opacity: 0;
+        animation: fadeInUp 0.8s ease forwards;
+        animation-delay: 5.3s;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .social-links a {
+        text-decoration: none;
+        color: #4dbbff;
+        margin: 0 10px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .social-links a:hover {
+        color: #ffffff;
+        text-shadow: 0 0 8px #00cfff;
+        transform: translateY(-3px) scale(1.1);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+        .profile-card {
+            padding: 30px 25px;
+        }
+        
+        .profile-card img {
+            width: 130px;
+            height: 130px;
+        }
+
+        .orbit-container {
+            width: 150px;
+            height: 150px;
+        }
+
+        @keyframes orbit1 {
+            0% { transform: rotate(0deg) translateX(75px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(75px) rotate(-360deg); }
+        }
+
+        @keyframes orbit2 {
+            0% { transform: rotate(120deg) translateX(75px) rotate(-120deg); }
+            100% { transform: rotate(480deg) translateX(75px) rotate(-480deg); }
+        }
+
+        @keyframes orbit3 {
+            0% { transform: rotate(240deg) translateX(75px) rotate(-240deg); }
+            100% { transform: rotate(600deg) translateX(75px) rotate(-600deg); }
+        }
+    }
+
+</style>
+</head>
+<body>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div class="loading-screen">
+        <div class="orbit-container">
+            <div class="orbit-circle"></div>
+            <div class="orbit-circle"></div>
+            <div class="orbit-circle"></div>
+        </div>
+        
+        <div class="loading-logo">WELCOME TO<br>MY PROFILE</div>
+        
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+        
+        <div class="loading-text">
+            Loading<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+        </div>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="main-content">
+        <!-- BUBBLE -->
+        <div class="bubble" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="bubble" style="left: 25%; animation-delay: 2s;"></div>
+        <div class="bubble" style="left: 45%; animation-delay: 4s;"></div>
+        <div class="bubble" style="left: 65%; animation-delay: 1s;"></div>
+        <div class="bubble" style="left: 80%; animation-delay: 3s;"></div>
+        <div class="bubble" style="left: 90%; animation-delay: 5s;"></div>
+
+        <!-- PARTIKEL PREMIUM -->
+        <div class="particle" style="top: 20%; left: 30%; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 50%; left: 70%; animation-delay: 1s;"></div>
+        <div class="particle" style="top: 75%; left: 15%; animation-delay: 2s;"></div>
+        <div class="particle" style="top: 35%; left: 85%; animation-delay: 0.7s;"></div>
+        <div class="particle" style="top: 60%; left: 45%; animation-delay: 1.5s;"></div>
+
+        <!-- KARTU PROFIL -->
+        <div class="profile-card">
+            <div class="profile-image-wrapper">
+                <img src="Nurrizam.JPEG" alt="Foto Profil">
+            </div>
+
+            <h2>Mohamad Nurrizam Mulya Putra</h2>
+            <p>Mahasiswa Teknik Informatika</p>
+            <p>Universitas Pamulang</p>
+            <p><b>Hobi:</b> Memasak, Bermain Badminton, dan Video Game 🎮</p>
+            <p>💻 <b>Fokus:</b> Web Development | Data Analysis</p>
+            <p>📫 <b>Email:</b> <a href="mailto:ijammp11@gmail.com" style="color:#4dbbff;">ijammp11@gmail.com</a></p>
+
+            <p>🔗 <b>Sosial Media:</b></p>
+            <div class="social-links">
+                <a href="https://github.com/" target="_blank">GitHub</a> |
+                <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a> |
+                <a href="https://www.instagram.com/m.nurrizam_/" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
