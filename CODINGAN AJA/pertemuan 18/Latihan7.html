@@ -1,0 +1,32 @@
+<html>
+<body>
+<script type="text/javascript">
+var myarr = new Array(3);
+for (i=0; i<3; i++)
+{
+    myarr[i] = new Array(3);
+}
+
+myarr[0][0] = 1;
+myarr[0][1] = 2;
+myarr[0][2] = 3;
+myarr[1][0] = 4;
+myarr[1][1] = 5;
+myarr[1][2] = 6;
+myarr[2][0] = 7;
+myarr[2][1] = 8;
+myarr[2][2] = 9;
+
+document.write(myarr[1][2] + "<br>"); 
+
+for (i=0; i<3; i++)
+{
+    for (j=0; j<3; j++)
+    {
+        document.write(myarr[i][j] + "&nbsp;");
+    }
+    document.write("<br>");
+}
+</script>
+</body>
+</html>

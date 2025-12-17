@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Latihan Alert, Prompt, Confirm, dan Form</title>
+</head>
+<body>
+
+<h2>Program JavaScript: Alert, Prompt, Confirm, dan Form</h2>
+
+<script>
+// 1. ALERT
+alert("Selamat datang di program demo JavaScript!");
+
+// 2. PROMPT: minta nama pengguna
+var nama = prompt("Masukkan nama Anda:", "");
+
+// Jika PROMPT dibatalkan
+if (nama === null || nama === "") {
+    nama = "Tidak diisi";
+}
+
+// 3. CONFIRM
+var konfirmasi = confirm("Apakah nama Anda sudah benar: " + nama + "?");
+
+var hasil = "";
+
+if (konfirmasi == true) {
+    hasil = "Nama dikonfirmasi!";
+} else {
+    hasil = "Nama tidak dikonfirmasi!";
+}
+
+// Masukkan ke dalam FORM (output)
+function tampilkan() {
+    document.myform.namaOutput.value = nama;
+    document.myform.status.value = hasil;
+}
+</script>
+
+<form name="myform">
+  <h3>Hasil Input</h3>
+
+  Nama Anda:  
+  <input type="text" name="namaOutput" size="25"><br><br>
+
+  Status Konfirmasi:  
+  <input type="text" name="status" size="25"><br><br>
+
+  <input type="button" value="Tampilkan Hasil" onclick="tampilkan()">
+  <input type="reset" value="Reset">
+</form>
+
+</body>
+</html>
